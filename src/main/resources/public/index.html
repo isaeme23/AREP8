@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter</title>
+</head>
+<body>
+<h1>Form with POST</h1>
+<form action="/twitter/addPost">
+    <label for="content">Name:</label><br>
+    <input type="text" id="content" name="content" value="John"><br><br>
+    <input type="button" value="Submit" onclick="loadPostMsg(content)">
+</form>
+
+<div id="postrespmsg"></div>
+
+<script>
+            function loadPostMsg(content){
+                let url = "/twitter/addPost";
+                console.log(content);
+
+                fetch (url, {method: 'POST', body: JSON.stringify({content:content.value }),
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },})
+                    .then(x => x.text())
+                    .then(y => document.getElementById("postrespmsg").innerHTML = y);
+            }
+        </script>
+</body>
+</html>
