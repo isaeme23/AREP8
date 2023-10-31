@@ -6,49 +6,77 @@
 </head>
 <body>
 <h1>Hola! Escribe tu tweet </h1>
-<form action="/twitter/addPost">
-    <label for="content">Name:</label><br>
-    <input type="text" id="content" name="content" value="John"><br><br>
-    <input type="button" value="Submit" onclick="loadPostMsg(content)">
+<form>
+    <label for="content">Tweet:</label><br>
+    <input type="text" id="content" name="content" value="Tweet"><br><br>
+    <input type="button" value="Submit" onclick="loadPostMsg()">
 </form>
 
-<div id="postrespmsg"></div>
 <div id="getrespmsg"></div>
 
 <script>
-            function loadPostMsg(content){
-                let url = "/twitter/addPost";
+    function loadPostMsg() {
+        let content = document.getElementById('content').value;
+        let url = "/twitter/addPost";
 
-                fetch (url, {method: 'POST', body: JSON.stringify({content:content.value }),
-                headers: {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({ content: content }),
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                },})
-                    .then(x => x.text())
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.json();
+        })
+        .then(data => {
+            getAllPosts(); // Llamar a getAllPosts() dentro del primer fetch, una vez que se completa el envío del post.
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const container = document.getElementById('getrespmsg');
+            container.textContent = 'Error al procesar la solicitud';
+        });
+    }
 
-                fetch ("/twitter/all-posts", {method:'GET'})
-                .then(response => {
-                if (!response.ok) {
-                  throw new Error('Error en la solicitud');
-                }
-                return response.json();
-                })
-                .then(data => {
-                    const container = document.getElementById('getrespmsg');
-                    console.log('Datos recibidos:', data);
-                    const keys = Object.keys(data);
-                    const lastkey = keys[keys.length - 1]
-                    console.log(data[lastkey]);
-                    const h1 = document.createElement('p');
-                    h1.textContent = lastkey;
-                    container.appendChild(h1);
+    function getAllPosts() {
+        fetch("/twitter/all-posts", {
+            method: 'GET'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const container = document.getElementById('getrespmsg');
+            container.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevo contenido
+            console.log('Datos recibidos:', data);
+            const keys = Object.keys(data);
+            keys.forEach(key => {
+                    const p = document.createElement('p');
+                    p.textContent = key;
+                    container.appendChild(p);
                     const h3 = document.createElement('h3');
-                    var textt = data[lastkey].replace(/[""]/g, "");
-                    var textt1 = textt.replace("}", "");
-                    h3.textContent = textt1;
+                    var textt = JSON.stringify(data[key]);
+                    var textt1 = textt.replace(/[""]/g, "");
+                    var textt2 = textt1.replace("}", "");
+                    var textt3 = textt2.replace(/\\/g, "");
+                    h3.textContent = textt3;
                     container.appendChild(h3);
-              });
-          }
-        </script>
+                });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const container = document.getElementById('getrespmsg');
+            container.textContent = 'Error al procesar la solicitud';
+        });
+    }
+</script>
 </body>
 </html>
