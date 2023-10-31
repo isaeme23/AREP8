@@ -5,7 +5,7 @@
     <title>Twitter</title>
 </head>
 <body>
-<h1>Form with POST</h1>
+<h1>Hola! Escribe tu tweet </h1>
 <form action="/twitter/addPost">
     <label for="content">Name:</label><br>
     <input type="text" id="content" name="content" value="John"><br><br>
@@ -13,11 +13,11 @@
 </form>
 
 <div id="postrespmsg"></div>
+<div id="getrespmsg"></div>
 
 <script>
             function loadPostMsg(content){
                 let url = "/twitter/addPost";
-                console.log(content);
 
                 fetch (url, {method: 'POST', body: JSON.stringify({content:content.value }),
                 headers: {
@@ -25,8 +25,30 @@
                 'Content-Type': 'application/json'
                 },})
                     .then(x => x.text())
-                    .then(y => document.getElementById("postrespmsg").innerHTML = y);
-            }
+
+                fetch ("/twitter/all-posts", {method:'GET'})
+                .then(response => {
+                if (!response.ok) {
+                  throw new Error('Error en la solicitud');
+                }
+                return response.json();
+                })
+                .then(data => {
+                    const container = document.getElementById('getrespmsg');
+                    console.log('Datos recibidos:', data);
+                    const keys = Object.keys(data);
+                    const lastkey = keys[keys.length - 1]
+                    console.log(data[lastkey]);
+                    const h1 = document.createElement('p');
+                    h1.textContent = lastkey;
+                    container.appendChild(h1);
+                    const h3 = document.createElement('h3');
+                    var textt = data[lastkey].replace(/[""]/g, "");
+                    var textt1 = textt.replace("}", "");
+                    h3.textContent = textt1;
+                    container.appendChild(h3);
+              });
+          }
         </script>
 </body>
 </html>

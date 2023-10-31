@@ -8,20 +8,21 @@ import java.util.Optional;
 
 public class APIPersistence {
 
-    private HashMap<String, Post> APIPosts = new HashMap<>();
+    private HashMap<String, String> APIPosts = new HashMap<>();
     private int numberOfPosts = 1;
 
-    public HashMap<String, Post> getAPIPosts() {
+    public HashMap<String, String> getAPIPosts() {
         return APIPosts;
     }
 
-    public Optional<Post> getPost(String id){
+    public Optional<String> getPost(String id){
         return Optional.of(APIPosts.getOrDefault(id, null));
     }
 
     public Post addPost(String content){
         Post newPost = new Post(numberOfPosts, content);
-        APIPosts.put(newPost.getId(), newPost);
+        numberOfPosts++;
+        APIPosts.put(newPost.getId(), newPost.getContent());
         return newPost;
     }
 }

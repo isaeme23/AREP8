@@ -10,7 +10,7 @@ public class PostService {
 
     private APIPersistence posts = new APIPersistence();
 
-    public HashMap<String, Post> getAllPosts(){
+    public HashMap<String, String> getAllPosts(){
         return posts.getAPIPosts();
     }
 
