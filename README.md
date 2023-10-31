@@ -36,4 +36,5 @@ Despues de ingresar, encontraremos la pantalla para realizar nuestros posts y en
 
 Luego, lo subimos a un Bucket S3, en donde podemos ver el login disponible en internet asi:
 
-![Captura de Pantalla 2023-10-31 a la(s) 6 28 12 p m](https://github.com/isaeme23/AREP8/assets/77862058/0a918053-f58e-4be3-a29e-30d5df281de5)
+![Captura de Pantalla 2023-10-31 a la(s) 6 57 32 p m](https://github.com/isaeme23/AREP8/assets/77862058/117e4615-e5ad-48c6-8527-bae88e1aea4f)
+
