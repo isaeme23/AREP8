@@ -60,7 +60,7 @@
             const keys = Object.keys(data);
             keys.forEach(key => {
                     const p = document.createElement('p');
-                    p.textContent = key;
+                    p.textContent = localStorage.getItem('username');;
                     container.appendChild(p);
                     const h3 = document.createElement('h3');
                     var textt = JSON.stringify(data[key]);

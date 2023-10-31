@@ -35,6 +35,13 @@ public class APIController {
         return Response.ok(Files.readAllBytes(java.nio.file.Path.of("./src/main/resources/public/index.html"))).build();
     }
 
+    @GET()
+    @Path("login")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getlogin() throws IOException {
+        return Response.ok(Files.readAllBytes(java.nio.file.Path.of("./src/main/resources/public/login.html"))).build();
+    }
+
     @POST()
     @Path("addPost")
     @Consumes(MediaType.APPLICATION_JSON)
