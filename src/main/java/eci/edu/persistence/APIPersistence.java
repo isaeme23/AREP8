@@ -1,10 +1,11 @@
-package eci.edu.monolito.persistence;
+package eci.edu.persistence;
 
-import eci.edu.monolito.model.Post;
+import eci.edu.model.Post;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.HashMap;
 import java.util.Optional;
-
+@ApplicationScoped
 public class APIPersistence {
 
     private HashMap<String, Post> APIPosts = new HashMap<>();

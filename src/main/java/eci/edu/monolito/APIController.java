@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Optional;
 
-import eci.edu.monolito.model.Post;
-import eci.edu.monolito.service.PostService;
+import eci.edu.model.Post;
+import eci.edu.service.PostService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -14,7 +15,8 @@ import jakarta.ws.rs.core.Response;
 @Path("/twitter")
 public class APIController {
 
-    private PostService postService = new PostService();
+    @Inject
+    PostService postService;
     @GET()
     @Path("all-posts")
     @Produces(MediaType.APPLICATION_JSON)

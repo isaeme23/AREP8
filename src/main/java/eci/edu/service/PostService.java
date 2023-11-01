@@ -1,14 +1,18 @@
-package eci.edu.monolito.service;
+package eci.edu.service;
 
-import eci.edu.monolito.model.Post;
-import eci.edu.monolito.persistence.APIPersistence;
+import eci.edu.model.Post;
+import eci.edu.persistence.APIPersistence;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.util.HashMap;
 import java.util.Optional;
 
+@ApplicationScoped
 public class PostService {
 
-    private APIPersistence posts = new APIPersistence();
+    @Inject
+    APIPersistence posts;
 
     public HashMap<String, Post> getAllPosts(){
         return posts.getAPIPosts();
