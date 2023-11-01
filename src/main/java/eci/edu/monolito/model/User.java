@@ -1,4 +1,4 @@
-package eci.edu.entities;
+package eci.edu.monolito.model;
 
 public class User {
 

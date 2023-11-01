@@ -18,10 +18,11 @@
     function loadPostMsg() {
         let content = document.getElementById('content').value;
         let url = "/twitter/addPost";
+        const post = localStorage.getItem('username')+","+content;
 
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify({ content: content }),
+            body: JSON.stringify({ content: post }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -56,18 +57,15 @@
         .then(data => {
             const container = document.getElementById('getrespmsg');
             container.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevo contenido
-            console.log('Datos recibidos:', data);
             const keys = Object.keys(data);
             keys.forEach(key => {
                     const p = document.createElement('p');
-                    p.textContent = localStorage.getItem('username');;
+                    const datastring = JSON.stringify(data[key]);
+                    p.textContent = datastring.split("username")[1].split("content")[1].split(":")[1].replace("}", "").replace(/\\/g, "").replace(/[""]/g, "");
                     container.appendChild(p);
                     const h3 = document.createElement('h3');
-                    var textt = JSON.stringify(data[key]);
-                    var textt1 = textt.replace(/[""]/g, "");
-                    var textt2 = textt1.replace("}", "");
-                    var textt3 = textt2.replace(/\\/g, "");
-                    h3.textContent = textt3;
+                    var contenido = datastring.split("content")[1].split(",")[0].replace(/[""]/g, "").replace(/\\/g, "").replace(":", "").replace("}", "");
+                    h3.textContent = contenido;
                     container.appendChild(h3);
                 });
         })

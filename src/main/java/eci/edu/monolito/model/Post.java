@@ -1,13 +1,16 @@
-package eci.edu.entities;
+package eci.edu.monolito.model;
 
 public class Post {
 
     private String id;
     private String content;
 
-    public Post(Integer id, String content) {
+    private String username;
+
+    public Post(Integer id, String content, String username) {
         this.id = String.valueOf("P"+id);
         this.content = content;
+        this.username = username;
     }
 
     public String getId() {
@@ -20,6 +23,14 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setContent(String content) {

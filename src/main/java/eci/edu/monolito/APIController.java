@@ -1,22 +1,16 @@
-package eci.edu;
+package eci.edu.monolito;
 
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.Optional;
 
-import eci.edu.entities.Post;
-import eci.edu.service.PostService;
-import jakarta.annotation.security.PermitAll;
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
+import eci.edu.monolito.model.Post;
+import eci.edu.monolito.service.PostService;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.SecurityContext;
+
 @Path("/twitter")
 public class APIController {
 
@@ -47,7 +41,7 @@ public class APIController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addPost(String content) {
-        Optional<Post> post = postService.addPost(content.split(":")[1]);
+        Optional<Post> post = postService.addPost(content.split(",")[1], content.split(",")[0]);
         return Response.ok(post).build();
     }
 }
