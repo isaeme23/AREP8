@@ -17,7 +17,7 @@
 <script>
     function loadPostMsg() {
         let content = document.getElementById('content').value;
-        let url = "/twitter/addPost";
+        let url = "http://ec2-54-163-105-26.compute-1.amazonaws.com:8080/v1/service/post/addPost";
         const post = localStorage.getItem('username')+","+content;
 
         fetch(url, {
@@ -45,7 +45,7 @@
     }
 
     function getAllPosts() {
-        fetch("/twitter/all-posts", {
+        fetch("http://ec2-54-162-100-84.compute-1.amazonaws.com:8080/v1/service/thread/all-posts", {
             method: 'GET'
         })
         .then(response => {
